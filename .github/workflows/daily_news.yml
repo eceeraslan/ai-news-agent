@@ -1,0 +1,30 @@
+name: Günlük AI Haberleri
+
+on:
+  schedule:
+    # UTC saatiyle çalışır. 05:00 UTC = 08:00 Türkiye saati (UTC+3)
+    - cron: '0 5 * * *'
+  workflow_dispatch:  # Elle de tetikleyebilmek için (test butonu)
+
+jobs:
+  send-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu çek
+        uses: actions/checkout@v4
+
+      - name: Python kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Bağımlılıkları yükle
+        run: pip install -r requirements.txt
+
+      - name: Haberleri gönder
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+        run: python run_once.py
