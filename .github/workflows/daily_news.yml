@@ -3,7 +3,7 @@ name: Günlük AI Haberleri
 on:
   schedule:
     # UTC saatiyle çalışır. 05:00 UTC = 08:00 Türkiye saati (UTC+3)
-    - cron: '0 5 * * *'
+    - cron: '0 7 * * *'
   workflow_dispatch:  # Elle de tetikleyebilmek için (test butonu)
 
 jobs:
