@@ -18,7 +18,8 @@ class RSSFetcher:
                 continue
             
             for news in feed.entries[:self.news_per_source]:
-                clean_summary =BeautifulSoup(news.summary,"html.parser").get_text()
+                raw_summary=getattr(news,"summary","")  or ""
+                clean_summary =BeautifulSoup(raw_summary,"html.parser").get_text()
                 news_dict={
                       "source":source,
                       "title":news.title,
